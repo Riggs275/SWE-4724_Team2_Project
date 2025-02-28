@@ -5,7 +5,7 @@ This repository contains all the code, documentation, and other resources relate
 ## Table of Contents
 - [Overview](#Project-Overview)
 - [Team Members](#Team-Members)
-- [Architecture](#Project Architecture)
+- [Architecture](#Project-Architecture)
 
 ## Project Overview
 
