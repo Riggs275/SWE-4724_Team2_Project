@@ -16,17 +16,15 @@ class MemorySpike(Event):
 
     def get_available_memory_bytes(self):
         try:
-            vm_stat = subprocess.check_output(["vm_stat"]).decode("utf-8")
-            page_size = 4096  # macOS default
-            free_pages = 0
-            for line in vm_stat.splitlines():
-                match = re.match(r"^Pages (free|inactive|speculative):\s+(\d+).", line)
-                if match:
-                    free_pages += int(match.group(2))
-            return free_pages * page_size
+            with open('/proc/meminfo', 'r') as f:
+                meminfo = f.read()
+            match = re.search(r'MemAvailable:\s+(\d+)\s+kB', meminfo)
+            if match:
+                kb = int(match.group(1))
+                return kb * 1024  # convert to bytes
         except Exception as e:
-            print(f"vm_stat parse failed: {e}")
-            return None
+            print(f"/proc/meminfo parse failed: {e}")
+        return None
 
     def log_system_memory(self, label=""):
         mem = self.get_available_memory_bytes()
