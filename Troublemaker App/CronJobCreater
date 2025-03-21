@@ -1,0 +1,15 @@
+from crontab import CronTab
+
+# Use the current user's crontab
+cron = CronTab(user=True)
+
+# Command to run your Python script (adjust path as needed)
+job = cron.new(command='python3 /path/to/your_script.py', comment='Troublemaker MemorySpike')
+
+# Run it every day at 5:00 PM (example)
+job.setall('0 17 * * *')
+
+# Write the job to the crontab
+cron.write()
+
+print("Cron job added successfully.")
