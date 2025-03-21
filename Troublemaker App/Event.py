@@ -1,11 +1,14 @@
 from abc import ABC, abstractmethod
 import datetime
 
-
 class Event(ABC):
+    static_reference = 0  
 
-    static_reference = 0 # reference number
-    occurence_time = datetime.datetime.now() # intially set to current time but will change when overloaded
+    def __init__(self, intensity, occurence_time):
+        Event.static_reference += 1
+        self.reference_id = f"E{Event.static_reference:04d}"  # Ex: E0001
+        self.intensity = intensity
+        self.occurence_time = occurence_time or datetime.datetime.now()
 
     @abstractmethod
     def triggerEvent(self):

@@ -9,9 +9,8 @@ class MemorySpike(Event):
     MAX_MB = 2000  # Safety cap: max 2GB allocation
     CHUNK_SIZE = 10**6  # 1MB
 
-    def __init__(self, intensity: str, occurence: datetime.datetime):
-        self.intensity = intensity
-        self.occurence_time = occurence
+    def __init__(self, intensity: Intensity, occurence: datetime):
+        super().__init__(intensity,occurence)
         MemorySpike.static_reference += 1
         self.reference = MemorySpike.static_reference
 
@@ -33,7 +32,7 @@ class MemorySpike(Event):
         mem = self.get_available_memory_bytes()
         if mem:
             print(f"{label}Available system memory: {mem // (1024 ** 2)} MB")
-
+        
     def triggerEvent(self, dry_run=False):
         print(f"[{datetime.datetime.now()}] Triggering Memory Spike - Intensity: {self.intensity}")
         spike_data = []
@@ -45,11 +44,11 @@ class MemorySpike(Event):
                 print("Unable to determine system memory — using fallback")
                 num_chunks = 250
             else:
-                if self.intensity == "Low":
+                if self.intensity == Intensity.Low:
+                    target_usage = int(avail_mem * 0.4)
+                elif self.intensity == Intensity.Medium:
                     target_usage = int(avail_mem * 0.6)
-                elif self.intensity == "Medium":
-                    target_usage = int(avail_mem * 0.75)
-                elif self.intensity == "High":
+                elif self.intensity == Intensity.High:
                     target_usage = int(avail_mem * 0.9)
                 else:
                     print("Unknown intensity")
@@ -69,6 +68,7 @@ class MemorySpike(Event):
                     "timestamp": datetime.datetime.now(),
                     "dry_run": True
                 }
+
 
             spike_data = [bytearray(self.CHUNK_SIZE) for _ in range(num_chunks)]
             time.sleep(5)
@@ -96,8 +96,8 @@ if __name__ == "__main__":
 
     from MemorySpike import MemorySpike
     import datetime
-
-    event = MemorySpike("High", datetime.datetime.now())
+    intensity = Intensity(3)
+    event = MemorySpike(intensity,datetime.datetime.now())
     repeat = 3
 
     for i in range(repeat):
