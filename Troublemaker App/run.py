@@ -4,6 +4,7 @@ from DatabaseError import DatabaseError
 from DirectoryOverflow import DirectoryOverflow
 from MemorySpike import MemorySpike
 from Intensity import Intensity
+from CPUOverload import CPUOverload
 #from Events import Intensity,EventHandler,DatabaseError,DirectoryOverflow,MemorySpike
 #Trouble: EventHandler
 
@@ -30,10 +31,44 @@ class run:
                 userOption = int(input());
                 match(userOption):
                     case 1:
-                        #Run CPU Overload Test
-                        intensity= input("What intensity would you like to run it on? (Low, Medium, High):")
-                        #Since we want the overload to run now don't send in a date.time
-                        print("Not done yet")
+                        #Run CPU Overload test
+                        while True:
+                            intensity= input("What intensity would you like to run it on? (Low, Medium, High):").lower()
+                            #Since we want the overload to run now don't send in a date.time
+                            if intensity == "low":
+                                level = (Intensity(1))
+                                break
+                            elif intensity == "medium":
+                                level = (Intensity(2))
+                                break
+                            elif intensity == "high":
+                                level = (Intensity(3))
+                                break
+                            else:
+                                print("Select a correct option (low, medium, high)")
+                        
+                        while True:
+                            try:
+                                repeat = int(input("How many times would you like it to repeat with 4 second intervals? (Max 5): "))
+                                repeat = min(repeat,5)
+                                break 
+                            except Exception as e:
+                                print("Error: " + str(e))
+                        
+                        while True:
+                            try:
+                                duration = int(input("For how long in seconds? (Max 5 seconds): "))
+                                duration = min(duration,5)
+                                break
+                            except Exception as e:
+                                print("Error" + str(e))
+
+                        cpuOverloadInstance = CPUOverload(level, None)
+                        for i in range(repeat):
+                            print(f"\n--- Spike Iteration {i+1} ---")
+                            result = cpuOverloadInstance.triggerEvent(duration)
+                            print(f"Stats: {result}")
+                            time.sleep(4)                    
                     case 2:
                         #Run Directory Overflow test
                         while True:
