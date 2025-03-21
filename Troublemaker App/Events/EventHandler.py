@@ -1,15 +1,23 @@
 import datetime
+from MemorySpike import MemorySpike
+import DatabaseError
+# from CPUOverload import CPUOverload (when ready)
+import DirectoryOverflow
+import Intensity
 
 class EventHandler:
-
     Event_List = []
 
-    def addEvent(self, type: str, occurence: datetime, intensity: str) -> str:
+    def __init__(self):
+        pass
+
+    def addEvent(self, type: str, occurence: datetime, intensity: Intensity) -> str:
         try:
             if type == "CPU Overload":
                 # Call overloaded CPU Overload class and append (add) to list
-                event = CPUOverload(intensity, occurence)
-                self.Event_List.append(event) 
+                print("Not done yet")
+                #event = CPUOverload(intensity, occurence)
+                #self.Event_List.append(event) 
             elif type == "Memory Spike":
                 # Call overloaded Memory Spike class and append (add) to list
                 event = MemorySpike(intensity, occurence)
@@ -25,7 +33,8 @@ class EventHandler:
                 
             else:
                 raise TypeError("None of the types match available event classes")
-            return type + " added for " + occurence + " with an intensity of " + intensity
+            return f"{type} added for {occurence.strftime('%Y-%m-%d %H:%M:%S')} with intensity {intensity}"
+
         except Exception as e:
             return "error: " + e
 
@@ -40,8 +49,6 @@ class EventHandler:
             return "error: " + e
         
     def checkForEvent(self):
-        enumIndex = int(0)
         for event in self.Event_List:
             if event.occurence_time == datetime.datetime.now():
-                self.Event_List.index(enumIndex).triggerEvent()
-            enumIndex + 1
+                event.triggerEvent()
