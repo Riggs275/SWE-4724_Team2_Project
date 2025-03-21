@@ -221,7 +221,7 @@ class run:
 
                     os.chmod(script_name, 0o755)
                     os.system(f'echo "{os.getcwd()}/{script_name}" | at {schedule_time}')
-                    print(f"✅ Scheduled {test_type} test at {schedule_time} with {intensity} intensity.")
+                    print(f"Scheduled {test_type} test at {schedule_time} with {intensity} intensity.")
 
                 if userOption ==  0: 
                     print("Bye Bye\n")
