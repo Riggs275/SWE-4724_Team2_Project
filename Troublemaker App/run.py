@@ -1,4 +1,5 @@
 import time
+import os
 from EventHandler import EventHandler
 from DatabaseError import DatabaseError
 from DirectoryOverflow import DirectoryOverflow
@@ -173,9 +174,55 @@ class run:
                         print(f"Stats: {result}")
                         time.sleep(4)
                     databaseError.triggerEvent()
-                if userOption ==  5:
-                    #Schedule A Test
-                    print("not done yet")
+                if userOption == 5:
+                    print("What type of test would you like to schedule? (cpu, memory, directory, database): ")
+                    test_type = input().strip().lower()
+
+                    print("What intensity? (Low, Medium, High): ")
+                    intensity = input().strip().capitalize()
+                    if intensity not in ["Low", "Medium", "High"]:
+                        print("Invalid intensity.")
+                        return
+
+                    print("When would you like to run it? (e.g., now + 1 minute or 16:30): ")
+                    schedule_time = input().strip()
+
+                    script_name = f"scheduled_{test_type}_test.sh"
+                    python_cmd = ""
+
+                    if test_type == "cpu":
+                        python_cmd = (
+                            f'from CPUOverload import CPUOverload; from Intensity import Intensity; '
+                            f'import datetime; CPUOverload(Intensity.{intensity}, datetime.datetime.now()).triggerEvent()'
+                        )
+                    elif test_type == "memory":
+                        python_cmd = (
+                            f'from MemorySpike import MemorySpike; from Intensity import Intensity; '
+                            f'import datetime; MemorySpike(Intensity.{intensity}, datetime.datetime.now()).triggerEvent()'
+                        )
+                    elif test_type == "directory":
+                        python_cmd = (
+                            f'from DirectoryOverflow import DirectoryOverflow; from Intensity import Intensity; '
+                            f'import datetime; DirectoryOverflow(Intensity.{intensity}, datetime.datetime.now()).triggerEvent()'
+                        )
+                    elif test_type == "database":
+                        python_cmd = (
+                            f'from DatabaseError import DatabaseError; from Intensity import Intensity; '
+                            f'import datetime; DatabaseError(Intensity.{intensity}, datetime.datetime.now()).triggerEvent()'
+                        )
+                    else:
+                        print("Invalid test type.")
+                        return
+
+                    with open(script_name, "w") as f:
+                        f.write("#!/bin/bash\n")
+                        f.write(f"cd {os.getcwd()}\n")
+                        f.write(f"python3 -c \"{python_cmd}\"\n")
+
+                    os.chmod(script_name, 0o755)
+                    os.system(f'echo "{os.getcwd()}/{script_name}" | at {schedule_time}')
+                    print(f"✅ Scheduled {test_type} test at {schedule_time} with {intensity} intensity.")
+
                 if userOption ==  0: 
                     print("Bye Bye\n")
                     loop = False
