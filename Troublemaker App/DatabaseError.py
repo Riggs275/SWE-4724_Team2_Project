@@ -1,11 +1,13 @@
 import datetime
 import random
+from Event import Event
+from Intensity import Intensity
 
 class DatabaseError(Event):
     def __init__(self, intensity: Intensity, occurance: datetime):
-        super.__init__(intensity, occurance)
+        super().__init__(intensity, occurance)
     
-    def triggerEvent():
+    def triggerEvent(self):
         # Simulates a database error
         connection_errors = [
             "Connection timed out",
