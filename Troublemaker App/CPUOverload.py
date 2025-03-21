@@ -25,10 +25,10 @@ class CPUOverload(Event):
         core_count = os.cpu_count()
 
         if self.intensity == Intensity.Low:
-            usage = 40   # % per core
+            usage = 60   # % per core
             threads = max(1, core_count // 3)
         elif self.intensity == Intensity.Medium:
-            usage = 50
+            usage = 75
             threads = max(1, core_count // 2)
         elif self.intensity == Intensity.High:
             usage = 85
