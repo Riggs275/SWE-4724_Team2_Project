@@ -11,7 +11,7 @@ class DirectoryOverflow(Event):
 
     def triggerEvent(self):
         target_directory = "./overflow_test_dir"
-        self.simulate_directory_overflow(target_directory, self.occurence_time)
+        self.simulate_directory_overflow(target_directory, self.intensity)
         time.sleep(2)
         self.cleanup_directory(target_directory)
 
