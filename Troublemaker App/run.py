@@ -28,7 +28,7 @@ class run:
             print("1. Run CPU overload test\n2. Run a Directory Overflow test\n3. Run Memory Spike Test\n"
             "4. Run Database File Corruption Test\n5. Schedule the Stress Tests Above\n0. Exit\nSelection: ")
             try:
-                userOption = int(input());
+                userOption = int(input())
                 match(userOption):
                     case 1:
                         #Run CPU Overload test
