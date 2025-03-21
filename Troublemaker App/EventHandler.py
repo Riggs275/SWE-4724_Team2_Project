@@ -1,9 +1,9 @@
 import datetime
 from MemorySpike import MemorySpike
-import DatabaseError
+from DatabaseError import DatabaseError
 # from CPUOverload import CPUOverload (when ready)
-import DirectoryOverflow
-import Intensity
+from DirectoryOverflow import DirectoryOverflow
+from Intensity import Intensity
 
 class EventHandler:
     Event_List = []
