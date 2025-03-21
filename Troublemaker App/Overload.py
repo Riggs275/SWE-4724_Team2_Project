@@ -1,8 +1,5 @@
 
 import time
-import multiprocessing
-
-
 
 # This function overloads the CPU for a specific duration.
 def cpu_overload(duration=5):
