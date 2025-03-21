@@ -3,15 +3,14 @@ import time
 from Intensity import Intensity
 import subprocess
 import re
-from Event import Event
+from Events import Event
 
 class MemorySpike(Event):
     MAX_MB = 2000  # Safety cap: max 2GB allocation
     CHUNK_SIZE = 10**6  # 1MB
 
-    def __init__(self, intensity: str, occurence: datetime.datetime):
-        self.intensity = intensity
-        self.occurence_time = occurence
+    def __init__(self, intensity: Intensity, occurence: datetime):
+        super.__init__(intensity,occurence)
         MemorySpike.static_reference += 1
         self.reference = MemorySpike.static_reference
 
@@ -33,7 +32,7 @@ class MemorySpike(Event):
         mem = self.get_available_memory_bytes()
         if mem:
             print(f"{label}Available system memory: {mem // (1024 ** 2)} MB")
-
+        
     def triggerEvent(self, dry_run=False):
         print(f"[{datetime.datetime.now()}] Triggering Memory Spike - Intensity: {self.intensity}")
         spike_data = []
@@ -69,6 +68,7 @@ class MemorySpike(Event):
                     "timestamp": datetime.datetime.now(),
                     "dry_run": True
                 }
+
 
             spike_data = [bytearray(self.CHUNK_SIZE) for _ in range(num_chunks)]
             time.sleep(5)
