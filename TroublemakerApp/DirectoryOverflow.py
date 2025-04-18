@@ -74,11 +74,11 @@ class DirectoryOverflow(Event):
                 except Exception as e:
                     print(f"Error deleting file {file_path}: {e}")
             # Remove the directory after all files have been deleted
-            try:
-                os.rmdir(directory)
-                print(f"Deleted directory {directory}")
-            except Exception as e:
-                print(f"Error deleting directory {directory}: {e}")
+            #try:
+            #    os.rmdir(directory)
+            #    print(f"Deleted directory {directory}")
+            #except Exception as e:
+            #    print(f"Error deleting directory {directory}: {e}")
         else:
             print(f"Directory {directory} does not exist. No cleanup necessary.")
 
