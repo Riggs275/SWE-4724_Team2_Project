@@ -10,7 +10,8 @@ if os.path.exists(LOG_DIR):
         file_path = os.path.join(LOG_DIR, filename)
         if os.path.isfile(file_path):
             with open(file_path, "r") as f:
-                if "error" in f.read().lower():  # case-insensitive search
+                content = f.read().lower()
+                if "error" in content or "failed" in content or "rollback" in content:
                     error_found = True
                     break
 
