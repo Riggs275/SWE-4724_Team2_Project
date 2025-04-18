@@ -8,8 +8,9 @@ try:
 except FileNotFoundError:
     file_count = 0
 
-with open(OUTPUT_FILE, "w") as f:
-    f.write("# HELP directory_file_count Number of files in overflow test dir\n")
-    f.write("# TYPE directory_file_count gauge\n")
-    f.write(f"directory_file_count {file_count}\n")
+print(file_count)
+#with open(OUTPUT_FILE, "w") as f:
+  #  f.write("# HELP directory_file_count Number of files in overflow test dir\n")
+   # f.write("# TYPE directory_file_count gauge\n")
+    #f.write(f"directory_file_count {file_count}\n")
 #/Users/evanv/owlEye/SWE-4724_Team2_Project/TroublemakerApp/checkDirectoryOverflow.py
