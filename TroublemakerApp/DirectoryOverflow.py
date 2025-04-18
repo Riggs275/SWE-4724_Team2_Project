@@ -13,7 +13,7 @@ class DirectoryOverflow(Event):
         target_directory = "./overflow_test_dir"
         self.simulate_directory_overflow(target_directory, self.intensity)
         time.sleep(15)
-        self.cleanup_directory(target_directory)
+        #self.cleanup_directory(target_directory)
 
 
     def generate_random_file(self, filepath, size_kb=1):
