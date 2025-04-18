@@ -69,7 +69,7 @@ class MemorySpike(Event):
 
 
             spike_data = [bytearray(self.CHUNK_SIZE) for _ in range(num_chunks)]
-            time.sleep(5)
+            time.sleep(15)
 
         except MemoryError:
             print("Memory spike caused an error!")
