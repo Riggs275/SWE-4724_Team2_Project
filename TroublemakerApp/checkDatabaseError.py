@@ -7,3 +7,9 @@ try:
     file_count = len(os.listdir(LOG_DIR))
 except FileNotFoundError:
     file_count = 0
+
+print(file_count)
+with open(OUTPUT_FILE, "w") as f:
+    f.write("# HELP directory_file_count Number of files in overflow test dir\n")
+    f.write("# TYPE directory_file_count gauge\n")
+    f.write(f"log_error_flag {file_count}\n")
