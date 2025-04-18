@@ -184,8 +184,8 @@ class run:
                     
                     while True:
                         try:
-                            duration = int(input("For how long in seconds? (Max 5 seconds): "))
-                            duration = min(duration,5)
+                            duration = int(input("For how long in seconds? (Max 15 seconds): "))
+                            duration = min(duration,15)
                             break
                         except Exception as e:
                             print("Error" + str(e))
