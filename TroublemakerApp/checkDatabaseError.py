@@ -1,4 +1,4 @@
-LOG_PATH = "/home/EValenc6/myapp.log"
+LOG_PATH = "/home/EValenc6/SWE-4724_Team2_Project/TroublemakerApp/databaseError_test_dir"
 OUTPUT_FILE = "/home/EValenc6/owl-monitoring/text-metrics/log_error_flag.prom"
 
 with open(LOG_PATH, "r") as f:
