@@ -1,0 +1,4 @@
+psutil>=7.0.0
+schedule>=1.2.2
+prometheus_client>=0.14.1
+mysql-connector-python>=8.0.0
