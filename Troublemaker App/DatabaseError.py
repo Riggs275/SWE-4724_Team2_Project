@@ -1,7 +1,7 @@
 import datetime
 import random
-import Event
-from Events import Intensity
+from Event import Event
+from Intensity import Intensity
 
 class DatabaseError(Event):
     def __init__(self, intensity: Intensity, occurance: datetime):

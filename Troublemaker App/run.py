@@ -1,3 +1,4 @@
+import time
 from EventHandler import EventHandler
 from DatabaseError import DatabaseError
 from DirectoryOverflow import DirectoryOverflow
@@ -23,8 +24,8 @@ class run:
         loop = True
         while(loop):
             #Menu
-            print("1. Run CPU overload test\n2. Run a Memory Overload test\n3. Run excessive Memory test\n"
-            "4. Run Log File Corruption Test\n5. Schedule the Stress Tests Above\n0. Exit\nSelection: ")
+            print("1. Run CPU overload test\n2. Run a Directory Overflow test\n3. Run Memory Spike Test\n"
+            "4. Run Database File Corruption Test\n5. Schedule the Stress Tests Above\n0. Exit\nSelection: ")
             try:
                 userOption = int(input());
                 match(userOption):
@@ -49,34 +50,61 @@ class run:
                                 break
                             else:
                                 print("Select a correct option (low, medium, high)")
+                        
+                        while True:
+                            try:
+                                repeat = int(input("How many times would you like it to repeat with 4 second intervals? (Max 5): "))
+                                repeat = min(repeat,5)
+                                break 
+                            except Exception as e:
+                                print("Error: " + str(e))
                             
-                        overflowInstance = DirectoryOverflow(Event, intensity,level)
-                        overflowInstance.triggerEvent()
+                        overflowInstance = DirectoryOverflow(level, None)
+                        for i in range(repeat):
+                            print(f"\n--- Spike Iteration {i+1} ---")
+                            result = overflowInstance.triggerEvent()
+
+                            print(f"Stats: {result}")
+                            time.sleep(4)
                     case 3:
                         #Run Memory Spike Test
-                        intensity= input("What intensity would you like to run it on? (Low, Medium, High):")
                         #Since we want the overload to run now don't send in a date.time
                         while True:
                             intensity= input("What intensity would you like to run it on? (Low, Medium, High):").lower()
                             #Since we want the overload to run now don't send in a date.time
                             if intensity == "low":
-                                level = (Intensity(1))
+                                level = Intensity(1)
                                 break
                             elif intensity == "medium":
-                                level = (Intensity(2))
+                                level = Intensity(2)
                                 break
                             elif intensity == "high":
-                                level = (Intensity(3))
+                                level = Intensity(3)
                                 break
                             else:
                                 print("Select a correct option (low, medium, high)")
-                            
-                        memorySpike = MemorySpike(intensity,level)
-                        memorySpike.triggerEvent
+                        
+                        while True:
+                            try:
+                                repeat = int(input("How many times would you like it to repeat with 4 second intervals? (Max 5): "))
+                                repeat = min(repeat,5)
+                                break 
+                            except Exception as e:
+                                print("Error: " + str(e))
+
+                        
+                        memorySpike = MemorySpike(level, None)
+
+                        for i in range(repeat):
+                            print(f"\n--- Spike Iteration {i+1} ---")
+                            result = memorySpike.triggerEvent()
+
+                            print(f"Stats: {result}")
+                            time.sleep(4)
+                        
 
                     case 4:
                         #Run Database Log File Corruption Test
-                        intensity= input("What intensity would you like to run it on? (Low, Medium, High):")
                         #Since we want the overload to run now don't send in a date.time
                         while True:
                             intensity= input("What intensity would you like to run it on? (Low, Medium, High):").lower()
@@ -92,8 +120,24 @@ class run:
                                 break
                             else:
                                 print("Select a correct option (low, medium, high)")
-                            
+
+                        while True:
+                            try:
+                                repeat = int(input("How many times would you like it to repeat? (Max 5)"))
+                                repeat = min(repeat,5)
+                                break 
+                            except Exception as e:
+                                print("Error: " + str(e))
+                        
+
                         databaseError = DatabaseError(intensity,level)
+
+                        for i in range(repeat):
+                            print(f"\n--- Database Iteration {i+1} ---")
+                            result = databaseError.triggerEvent()
+
+                            print(f"Stats: {result}")
+                            time.sleep(4)
                         databaseError.triggerEvent()
                     case 5:
                         #Schedule A Test
@@ -110,5 +154,5 @@ class run:
         
 
 
-troubleMaker = EventHandler()
+troubleMaker = run()
 Runner = troubleMaker.run()
