@@ -184,8 +184,8 @@ class run:
                     
                     while True:
                         try:
-                            duration = int(input("For how long in seconds? (Max 15 seconds): "))
-                            duration = min(duration,15)
+                            duration = int(input("For how long in seconds? (Max 45 seconds): "))
+                            duration = min(duration,45)
                             break
                         except Exception as e:
                             print("Error" + str(e))
@@ -215,7 +215,7 @@ class run:
                     
                     while True:
                         try:
-                            repeat = int(input("How many times would you like it to repeat with 4 second intervals? (Max 5): "))
+                            repeat = int(input("How many times would you like it to repeat with 5 second intervals? (Max 5): "))
                             repeat = min(repeat,5)
                             break 
                         except Exception as e:
@@ -248,7 +248,7 @@ class run:
                     
                     while True:
                         try:
-                            repeat = int(input("How many times would you like it to repeat with 4 second intervals? (Max 5): "))
+                            repeat = int(input("How many times would you like it to repeat with 5 second intervals? (Max 5): "))
                             repeat = min(repeat,5)
                             break 
                         except Exception as e:
