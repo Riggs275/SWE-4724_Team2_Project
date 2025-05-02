@@ -1,15 +1,14 @@
 import os
-import time
 import psutil
 
-# Protect these processes from being adjusted
-SAFE_PROCESSES = ["prometheus", "grafana", "node_exporter", "auto_resolver", "python3"]
+# Only protect these by keywords in their command line
+SAFE_KEYWORDS = ["prometheus", "grafana", "node_exporter", "auto_resolver.py"]
 
 def is_safe(proc):
     try:
-        name = proc.name()
-        for safe in SAFE_PROCESSES:
-            if safe.lower() in name.lower():
+        cmdline = " ".join(proc.cmdline())
+        for keyword in SAFE_KEYWORDS:
+            if keyword.lower() in cmdline.lower():
                 return True
     except (psutil.NoSuchProcess, psutil.AccessDenied):
         return True
@@ -17,19 +16,19 @@ def is_safe(proc):
 
 def cleanup_cpu():
     print("🧩 Attempting to relieve CPU usage...")
-    psutil.cpu_percent(interval=0.1)  # Prime the data
-    
-    cpu_procs = [(p, p.cpu_percent(interval=0.1)) for p in psutil.process_iter(['pid', 'name'])]
+    psutil.cpu_percent(interval=0.1)
+
+    cpu_procs = [(p, p.cpu_percent(interval=0.1)) for p in psutil.process_iter(['pid', 'cmdline'])]
     cpu_procs.sort(key=lambda x: x[1], reverse=True)
 
     adjusted = 0
     for proc, cpu_percent in cpu_procs[:10]:
         try:
             if is_safe(proc):
-                print(f"🔒 Skipping safe process: {proc.pid} ({proc.name()})")
+                print(f"🔒 Skipping protected: {proc.pid} - {' '.join(proc.cmdline())}")
                 continue
             if cpu_percent < 5:
-                break  # Skip low-CPU processes
+                break
             proc.nice(10)
             print(f"🔻 Lowered priority of PID {proc.pid}, CPU: {cpu_percent:.2f}%")
             adjusted += 1
