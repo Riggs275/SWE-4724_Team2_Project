@@ -1,0 +1,3 @@
+# HELP directory_file_count Number of files in overflow test dir
+# TYPE directory_file_count gauge
+log_error_flag 0

@@ -1,0 +1,17 @@
+{
+	"ulid": "01JTHAV02XDTX3SR8JP6FRV51X",
+	"minTime": 1746475201735,
+	"maxTime": 1746482400000,
+	"stats": {
+		"numSamples": 1953653,
+		"numSeries": 1379,
+		"numChunks": 16272
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01JTHAV02XDTX3SR8JP6FRV51X"
+		]
+	},
+	"version": 1
+}

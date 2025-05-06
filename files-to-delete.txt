@@ -1,0 +1,5 @@
+owl-monitoring/prometheus/prometheus
+owl-monitoring/prometheus/promtool
+owl-monitoring/grafana/bin/grafana
+owl-monitoring/grafana-10.2.3.linux-amd64.tar.gz
+owl-monitoring/prometheus-2.52.0.linux-amd64.tar.gz
