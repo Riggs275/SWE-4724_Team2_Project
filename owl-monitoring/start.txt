@@ -1,2 +1,0 @@
-So that the directory is noticed by
-git
